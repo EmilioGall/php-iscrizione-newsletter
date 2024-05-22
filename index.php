@@ -1,5 +1,50 @@
 <?php ?>
 
+<?php
+
+$signed_emails = ['me@gmail.com', 'you@gmail.com', 'them@gmail.com',];
+
+if (!isset($_SESSION)) {
+
+   session_start();
+}
+
+if (isset($_POST['email'])) {
+
+   $user_email = $_POST["email"];
+
+   if (str_contains($user_email, '@') && str_contains($user_email, '.')) {
+
+      foreach ($signed_emails as $email) {
+
+         if ($user_email === $email) {
+
+            $alert =
+               '<div class="col-4 alert alert-success" role="alert"> 
+               <h3 class="text-center">Welcome back!</h3>
+            </div>';
+
+            // $_SESSION['authorized'] = true;
+            
+            break;
+         } else {
+
+            $alert =
+               "<div class='col-4 alert alert-danger' role='alert'> 
+               <h3 class='text-center'>We didn't find your e-mail.</h3>
+            </div>";
+         };
+      }
+   } else {
+
+      $alert =
+         '<div class="col-4 alert alert-danger" role="alert"> 
+         <h3 class="text-center">PLease, enter a valid email.</h3>
+      </div>';
+   }
+}
+
+?>
 
 
 
@@ -27,26 +72,40 @@
 
    <div class="container-md">
 
-      <h1 class="text-primary text-center mt-3 mb-5">Sign-up to our newsletter.</h1>
+      <h1 class="text-primary text-center mt-3 mb-5">Login to our newsletter.</h1>
 
+      <!-- Form Section -->
       <section class="row justify-content-center">
 
-         <form class="col-6" action="index.php" method="POST">
-   
+         <form class="col-6 mb-3" action="index.php" method="POST">
+
             <div class="mb-3">
-   
+
                <label for="input-email" class="form-label">Insert your email here.</label>
-   
-               <input type="email" class="form-control" id="input-email" placeholder="email@gmail.com">
-               
+
+               <input type="text" class="form-control" id="input-email" placeholder="email@gmail.com" name="email">
+
             </div>
-   
+
             <button type="submit" class="btn btn-primary">Submit</button>
-   
+
          </form>
 
       </section>
+      <!-- /Form Section -->
 
+      <!-- Alert Section -->
+      <section class="row justify-content-center">
+
+         <?php
+         if (isset($_POST['email'])) {
+
+            echo $alert;
+         }
+         ?>
+
+      </section>
+      <!-- /Alert Section -->
 
    </div>
 
