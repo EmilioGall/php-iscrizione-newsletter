@@ -1,11 +1,8 @@
-<?php ?>
-
 <?php
 
 require_once __DIR__ . "/partials/functions.php";
 
 ?>
-
 
 
 <!DOCTYPE html>
@@ -34,36 +31,16 @@ require_once __DIR__ . "/partials/functions.php";
 
       <h1 class="text-primary text-center mt-3 mb-5">Login to our newsletter.</h1>
 
-      <!-- Form Section -->
-      <section class="row justify-content-center">
-
-         <form class="col-6 mb-3" action="index.php" method="POST">
-
-            <div class="mb-3">
-
-               <label for="input-email" class="form-label">Insert your email here.</label>
-
-               <input type="text" class="form-control" id="input-email" placeholder="email@gmail.com" name="email" 
-               value="<?php echo isset($user_email) ? $user_email : '';?>">
-
-            </div>
-
-            <button type="submit" class="btn btn-primary">Submit</button>
-
-         </form>
-
-      </section>
-      <!-- /Form Section -->
-
       <!-- Alert Section -->
-      <section class="row justify-content-center">
+      <section class="row flex-column align-items-center">
 
-         <?php
-         if (isset($_POST['email'])) {
+         <div class="col-4 alert alert-success" role="alert">
 
-            echo $alert;
-         }
-         ?>
+            <h3 class="text-center">Thank you!</h3>
+
+         </div>
+
+         <a class="btn btn-warning col-2" href="./index.php" role="button">Back to home</a>
 
       </section>
       <!-- /Alert Section -->

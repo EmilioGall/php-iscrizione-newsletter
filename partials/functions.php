@@ -1,11 +1,10 @@
 <?php
 
-$signed_emails = ['me@gmail.com', 'you@gmail.com', 'them@gmail.com',];
+session_start();
 
-if (!isset($_SESSION)) {
+$_SESSION['signed_emails'] = ['me@gmail.com', 'you@gmail.com', 'them@gmail.com',];
 
-   session_start();
-}
+var_dump($_SESSION['signed_emails']);
 
 if (isset($_POST['email'])) {
 
@@ -13,26 +12,25 @@ if (isset($_POST['email'])) {
 
    if (str_contains($user_email, '@') && str_contains($user_email, '.')) {
 
-      foreach ($signed_emails as $email) {
+      if (in_array($user_email, $_SESSION['signed_emails'])) {
 
-         if ($user_email === $email) {
+         // $alert =
+         //    '<div class="col-4 alert alert-success" role="alert"> 
+         //       <h3 class="text-center">Welcome back!</h3>
+         //    </div>';
 
-            $alert =
-               '<div class="col-4 alert alert-success" role="alert"> 
-               <h3 class="text-center">Welcome back!</h3>
-            </div>';
+         header('Location: ./thankyou.php');
+      } else {
 
-            // $_SESSION['authorized'] = true;
+         $_SESSION['signed_emails'][] = $user_email;
 
-            break;
-         } else {
+         var_dump($_SESSION['signed_emails']);
 
-            $alert =
-               "<div class='col-4 alert alert-danger' role='alert'> 
+         $alert =
+            "<div class='col-4 alert alert-danger' role='alert'> 
                <h3 class='text-center'>We didn't find your e-mail.</h3>
             </div>";
-         };
-      }
+      };
    } else {
 
       $alert =
@@ -41,5 +39,3 @@ if (isset($_POST['email'])) {
       </div>';
    }
 }
-
-?>
